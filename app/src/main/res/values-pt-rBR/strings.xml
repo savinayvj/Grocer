@@ -18,4 +18,6 @@
     <string name="select_language">Escolha uma língua</string>
     <string name="not_available">Indisponível</string>
     <string name="currency">R$</string>
+
+    <string name="save">Save</string>
 </resources>

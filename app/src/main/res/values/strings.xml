@@ -17,5 +17,6 @@
     <string name="select_language">Please select a language</string>
     <string name="not_available">Not Available</string>
     <string name="currency">€</string>
+    <string name="save">Save</string>
 
 </resources>
