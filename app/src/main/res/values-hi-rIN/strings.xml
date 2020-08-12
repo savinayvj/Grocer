@@ -17,6 +17,8 @@
     <string name="language_changed">कृपया ऐप को दोबारा चालू करें भाषा बदलने के लिए</string>
     <string name="select_language">कृपया भाषा का चयन  करें</string>
     <string name="not_available">उपलब्ध नहीं है</string>
+    <string name="currency">₹</string>
     <string name="save">सेव</string>
+
 
 </resources>
