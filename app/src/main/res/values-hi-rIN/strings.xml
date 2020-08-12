@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">Grocer</string>
+    <string name="search_product">सामान खोजें</string>
+    <string name="bread">ब्रेड</string>
+    <string name="beverages">पीने का सामान</string>
+    <string name="confectionary">बिस्कुट</string>
+    <string name="dental_care">दांतों का सामान</string>
+    <string name="grains">अनाज</string>
+    <string name="pizza">पिज़्ज़ा</string>
+    <string name="add_to_cart">टोकरी में डालें </string>
+    <string name="no_item">शॉपिंग करना शुरू करें!</string>
+    <string name= "total">कुल पैसे</string>
+    <string name= "delivery_charges">डिलीवरी के पैसे</string>
+    <string name= "Pay">पैसे भरें</string>
+    <string name= "remove_from_cart">टोकरी से हटाएं</string>
+    <string name="language_changed">कृपया ऐप को दोबारा चालू करें भाषा बदलने के लिए</string>
+    <string name="select_language">कृपया भाषा का चयन  करें</string>
+    <string name="not_available">उपलब्ध नहीं है</string>
+    <string name="currency">₹</string>
+
+</resources>

@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name" translatable="false">Grocer</string>
+    <string name="search_product">Search Product</string>
+    <string name="bread">Bread</string>
+    <string name="beverages">Beverages</string>
+    <string name="confectionary">Confectionary</string>
+    <string name="dental_care">Dental Care</string>
+    <string name="grains">Grains</string>
+    <string name="pizza">Pizza</string>
+    <string name="add_to_cart">Add To Cart</string>
+    <string name="no_item">Start Shopping!</string>
+    <string name="total">Total</string>
+    <string name="delivery_charges">Delivery Charges</string>
+    <string name="Pay">Pay</string>
+    <string name="remove_from_cart">Remove From Cart</string>
+    <string name="language_changed">Please restart the app for language change to take effect</string>
+    <string name="select_language">Please select a language</string>
+    <string name="not_available">Not Available</string>
+    <string name="currency">€</string>
+
+</resources>

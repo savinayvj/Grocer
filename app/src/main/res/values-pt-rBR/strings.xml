@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">Grocer</string>
+    <string name="search_product">Procurar produto</string>
+    <string name="bread">Pão</string>
+    <string name="beverages">Bebidas</string>
+    <string name="confectionary">Confeitaria</string>
+    <string name="dental_care">Saúde Bucal</string>
+    <string name="grains">Grãos</string>
+    <string name="pizza">Pizza</string>
+    <string name="add_to_cart">Adicionar ao carrinho</string>
+    <string name="no_item">Comece a comprar!</string>
+    <string name="total">Total</string>
+    <string name="delivery_charges">Frete</string>
+    <string name="Pay">Pagamento</string>
+    <string name="remove_from_cart">Remover do carrinho</string>
+    <string name="language_changed">Idioma Alterado</string>
+    <string name="select_language">Escolha uma língua</string>
+    <string name="not_available">Indisponível</string>
+    <string name="currency">R$</string>
+</resources>

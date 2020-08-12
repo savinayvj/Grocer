@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "71381571634",
+    "firebase_url": "https://grocer-44ace.firebaseio.com",
+    "project_id": "grocer-44ace",
+    "storage_bucket": "grocer-44ace.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:71381571634:android:f76493464ce0106ad1442b",
+        "android_client_info": {
+          "package_name": "com.app.grocer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "71381571634-8rjb08mbnuc1oqitvctgr9q93t5n098g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCaZLGhpjCrhNWYWWsz_7gnYWg81TityhY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "71381571634-8rjb08mbnuc1oqitvctgr9q93t5n098g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

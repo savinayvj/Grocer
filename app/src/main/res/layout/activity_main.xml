@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<RelativeLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <include
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/toolbar_layout"
+        android:id="@+id/toolbar"
+        >
+
+    </include>
+
+    <com.synnapps.carouselview.CarouselView
+        android:id="@+id/carouselView"
+        android:layout_width="@dimen/_290sdp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="@dimen/_140sdp"
+        android:layout_below="@id/toolbar"
+        android:layout_marginTop="@dimen/_20sdp"
+        app:fillColor="#FFFFFFFF"
+        app:pageColor="#00000000"
+        app:radius="4dp"
+        app:slideInterval="3000"
+        app:strokeColor="#FF777777"
+        app:strokeWidth="1dp"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_below="@id/carouselView"
+        android:background="@drawable/background_border"
+        >
+
+
+
+
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="@dimen/_30sdp"
+            android:padding="@dimen/_3sdp"
+
+            >
+
+            <ImageView
+                android:layout_width="@dimen/_55sdp"
+                android:layout_height="@dimen/_75sdp"
+                android:src="@drawable/beverage_icon">
+
+            </ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/beverages"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/_75sdp"
+                android:textStyle="bold">
+
+            </TextView>
+
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:padding="@dimen/_3sdp"
+           >
+
+            <ImageView
+                android:id="@+id/cat_bread"
+                android:layout_width="@dimen/_55sdp"
+                android:layout_height="@dimen/_75sdp"
+                android:src="@drawable/bread_icon">
+
+            </ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bread"
+                android:layout_marginTop="@dimen/_75sdp"
+                android:textStyle="bold"
+                android:layout_centerHorizontal="true">
+
+            </TextView>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_3sdp"
+
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/_30sdp">
+
+            <ImageView
+                android:layout_width="@dimen/_55sdp"
+                android:layout_height="@dimen/_75sdp"
+                android:src="@drawable/confectionary_icon">
+
+            </ImageView>
+
+            <TextView
+                android:layout_width="@dimen/_65sdp"
+                android:layout_height="wrap_content"
+                android:text="@string/confectionary"
+                android:layout_marginTop="@dimen/_75sdp"
+                android:textStyle="bold"
+                android:layout_centerHorizontal="true">
+
+            </TextView>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_125sdp"
+            android:layout_marginLeft="@dimen/_30sdp"
+            android:layout_alignParentLeft="true"
+            android:padding="@dimen/_3sdp"
+           >
+
+            <ImageView
+                android:id="@+id/cat_dental_care"
+                android:layout_width="@dimen/_55sdp"
+                android:layout_height="@dimen/_75sdp"
+                android:src="@drawable/dental_care_icon">
+
+            </ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dental_care"
+                android:layout_marginTop="@dimen/_75sdp"
+                android:textStyle="bold"
+                android:layout_centerHorizontal="true">
+
+            </TextView>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_125sdp"
+            android:layout_centerHorizontal="true"
+            android:padding="@dimen/_3sdp"
+      >
+
+            <ImageView
+                android:layout_width="@dimen/_55sdp"
+                android:layout_height="@dimen/_75sdp"
+                android:src="@drawable/grains_icon">
+
+            </ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/grains"
+                android:layout_marginTop="@dimen/_75sdp"
+                android:textStyle="bold"
+                android:layout_centerHorizontal="true">
+
+            </TextView>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_125sdp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/_30sdp"
+            android:padding="@dimen/_3sdp"
+          >
+
+            <ImageView
+                android:layout_width="@dimen/_55sdp"
+                android:layout_height="@dimen/_75sdp"
+                android:src="@drawable/pizza_icon">
+
+            </ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pizza"
+                android:layout_marginTop="@dimen/_75sdp"
+                android:textStyle="bold"
+                android:layout_centerHorizontal="true">
+
+            </TextView>
+
+
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
+</ScrollView>

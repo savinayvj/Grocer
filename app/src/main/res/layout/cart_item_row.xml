@@ -1,0 +1,82 @@
+<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/item_image"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_80sdp"
+        android:padding="@dimen/_8sdp">
+
+    </ImageView>
+
+    <TextView
+        android:id="@+id/item_name"
+        android:layout_width="@dimen/_90sdp"
+        android:layout_height="wrap_content"
+        android:maxHeight="@dimen/_80sdp"
+        android:layout_alignParentTop="true"
+        android:text="Marshmallow"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@android:color/black"
+        android:layout_toRightOf="@id/item_image"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/cross"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="X"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@android:color/black"
+        android:layout_toRightOf="@id/item_name"
+        android:layout_marginLeft="@dimen/_2sdp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@android:color/black"
+        android:layout_toRightOf="@id/cross"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:textStyle="bold"
+        />
+
+
+
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentEnd="true"
+    android:layout_alignParentRight="true"
+    >
+
+    <TextView
+        android:id="@+id/item_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:text="Rs.500"
+        android:textColor="#2e821d"
+        android:textSize="@dimen/_18sdp" />
+
+
+
+
+
+
+
+
+</RelativeLayout>
+
+</RelativeLayout>

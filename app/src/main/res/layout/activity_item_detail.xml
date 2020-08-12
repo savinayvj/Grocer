@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ItemDetail">
+
+
+    <include
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/toolbar_layout"
+        android:id="@+id/toolbar"
+        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar">
+
+    <TextView
+        android:id="@+id/item_name_detailed"
+        android:layout_width="@dimen/_280sdp"
+        android:layout_centerHorizontal="true"
+        android:textColor="@android:color/black"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:layout_marginTop="15dp"
+        android:text="2 Pack 8 Slices Baker Street Sliced Rye and Wheat Bread Slices Low Fat"
+        />
+
+        <ImageView
+            android:id="@+id/item_image_detailed"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/item_name_detailed"
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="@dimen/_150sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:src="@drawable/search_background"/>
+
+        <TextView
+            android:id="@+id/item_desc_detailed"
+            android:layout_width="@dimen/_280sdp"
+            android:layout_below="@id/item_image_detailed"
+            android:layout_centerHorizontal="true"
+            android:textColor="@android:color/black"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_12sdp"
+            android:layout_marginTop="10dp"
+            android:text="2 Pack 8 Slices Baker Street Sliced Rye and Wheat Bread Slices Low Fat2 Pack 8 Slices Baker Street Sliced Rye and Wheat Bread Slices Low Fat2 Pack 8 Slices Baker Street Sliced Rye and Wheat Bread Slices Low Fat2 Pack 8 Slices Baker Street Sliced Rye and Wheat Bread Slices Low Fat2 Pack 8 Slices Baker Street Sliced Rye and Wheat Bread Slices Low Fat2 Pack 8 Slices Baker Street Sliced Rye and Wheat Bread Slices Low Fat"
+            />
+        <TextView
+            android:id="@+id/item_price_detailed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_desc_detailed"
+            android:text="Rs.500"
+            android:textColor="#2e821d"
+            android:textStyle="bold"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:textSize="@dimen/_25sdp"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_desc_detailed"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp">
+            <ImageView
+                android:id="@+id/item_delete"
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:src="@drawable/remove_item"
+                />
+            <TextView
+                android:id="@+id/item_count"
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:text="0"
+                android:textSize="@dimen/_25sdp"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:src="@drawable/add_item"
+                android:gravity="center" />
+
+            <ImageView
+                android:id="@+id/item_add"
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:src="@drawable/add_item"
+                android:layout_toRightOf="@id/item_count"/>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/addtocart_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_to_cart"
+            android:layout_below="@id/item_price_detailed"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/addtocart_background"
+            android:textColor="#ffffff"
+            android:paddingLeft="@dimen/_20sdp"
+            android:paddingRight="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            />
+
+        <Button
+            android:id="@+id/remove_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/remove_from_cart"
+            android:layout_below="@id/addtocart_button"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_centerHorizontal="true"
+            android:visibility="invisible"
+            android:background="@drawable/addtocart_background"
+            android:textColor="#ffffff"
+            android:paddingLeft="@dimen/_20sdp"
+            android:paddingRight="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            />
+    </RelativeLayout>
+</RelativeLayout>
+    </ScrollView>
