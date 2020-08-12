@@ -1,5 +1,6 @@
 package com.app.grocer;
 
+//DataModel for search Items
 public class SearchItem {
     private String searchSuggestion;
     private int productId;

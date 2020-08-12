@@ -10,7 +10,7 @@ import org.w3c.dom.Text;
 
 import java.util.Map;
 
-
+//Shopping cart library
 public class shoppingCart {
     SharedPreferences sharedpreferences;
     SharedPreferences.Editor myEdit;

@@ -16,6 +16,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+//Search Bar populator
 public class SearchGlobal {
     public static ArrayList<SearchItem> searchList;
     private Context context;
@@ -30,6 +31,8 @@ public class SearchGlobal {
         this.context = context;
         this.search_bar = search_bar;
         searchList = new ArrayList<SearchItem>();
+
+        //Connect to Firebase to get Names of all products
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("products");
         Query qr = myRef.orderByChild("productName");

@@ -20,6 +20,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
+//Custom Adapter for shopping cart list
 public class ShoppingCartAdapter extends ArrayAdapter<DataModel> implements View.OnClickListener{
 
     private ArrayList<DataModel> dataSet;
@@ -44,9 +45,6 @@ public class ShoppingCartAdapter extends ArrayAdapter<DataModel> implements View
     }
     @Override
     public void onClick(View v) {
-
-
-
 
     }
     private int lastPosition = -1;
@@ -82,9 +80,10 @@ public class ShoppingCartAdapter extends ArrayAdapter<DataModel> implements View
         result.startAnimation(animation);
         lastPosition = position;
         viewHolder.item_name.setText(dataModel.getName());
-        viewHolder.item_price.setText(("Rs." + dataModel.getPrice()));
+        viewHolder.item_price.setText((getContext().getApplicationContext().getResources().getString(R.string.currency)  + " " + dataModel.getPrice()));
         viewHolder.item_quantity.setText(Integer.toString(dataModel.getQuantity()));
 
+        //open item details page when item name is clicked
         viewHolder.item_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -96,8 +95,7 @@ public class ShoppingCartAdapter extends ArrayAdapter<DataModel> implements View
             }
         } );
 
-
-        // Create a reference with an initial file path and name
+        //Get image for product from Firebase Storage
         FirebaseStorage storage = FirebaseStorage.getInstance();
         Log.d("mmm","productImages/" + dataModel.getId() + ".jpg");
         StorageReference storageRef = storage.getReference().child("productImages/" + dataModel.getId() + ".jpg");

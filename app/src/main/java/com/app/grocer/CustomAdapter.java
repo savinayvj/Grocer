@@ -40,6 +40,8 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
+//Custom Adapter for the items list when a category is opened
+
 public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnClickListener{
 
     private ArrayList<DataModel> dataSet;
@@ -113,8 +115,14 @@ public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnCli
         Animation animation = AnimationUtils.loadAnimation(mContext, (position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
         result.startAnimation(animation);
         lastPosition = position;
+
+        // set Item's Name
         viewHolder.item_name.setText(dataModel.getName());
+
+        //Set Item's Price (currency is decided by Locale selected)
         viewHolder.item_price.setText(getContext().getApplicationContext().getResources().getString(R.string.currency) + " " + dataModel.getPrice());
+
+        //If the item's quantity(stock) is less than 0 then Set price as "Not Available" and disable the block to add items to cart
         if(dataModel.getQuantity()<=0){
             viewHolder.item_count.setVisibility(View.INVISIBLE);
             viewHolder.item_add.setVisibility(View.INVISIBLE);
@@ -122,17 +130,20 @@ public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnCli
             viewHolder.item_price.setText(getContext().getApplicationContext().getResources().getString(R.string.not_available));
             notifyDataSetChanged();
         }
+
+        //shopping cart object to add/remove items when the '+' and '-' icons are pressed.
         final SharedPreferences sharedpreferences = getContext().getSharedPreferences("Myprefs", 0);
         final shoppingCart cart = new shoppingCart(sharedpreferences,cart_counter);
 
+        //add icon
         viewHolder.item_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //+1 to item count in the center
                 int count = Integer.valueOf(viewHolder.item_count.getText().toString()) +1;
                 viewHolder.item_count.setText(Integer.toString(count));
 
-
+                //write the new quantity to the storageprefs by calling addRemoveItems() and later updateCartUI() to reflect the changes on the shopping cart icon
                 cart.addRemoveItems(dataModel.item_id,viewHolder.item_count.getText().toString());
                 cart.updateCartUI();
 
@@ -144,10 +155,13 @@ public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnCli
 
         });
 
+        //remove icon
         viewHolder.item_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //-1 to item count in the center
                 int count = Integer.valueOf(viewHolder.item_count.getText().toString()) -1;
+                //write the new quantity (if > 0) to the storageprefs by calling addRemoveItems() and later updateCartUI() to reflect the changes on the shopping cart icon
                 if(count>=0) {
                     viewHolder.item_count.setText(Integer.toString(count));
                     cart.addRemoveItems(dataModel.item_id,viewHolder.item_count.getText().toString());
@@ -156,6 +170,7 @@ public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnCli
             }
         });
 
+        //click Item name to open the ItemDetails Activity to see more details about item.
         viewHolder.item_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -168,7 +183,7 @@ public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnCli
             }
         } );
 
-        // Create a reference with an initial file path and name
+        //Retrieve Image of the product from Firebase Storage
         FirebaseStorage storage = FirebaseStorage.getInstance();
         Log.d("mmm","productImages/" + dataModel.getId() + ".jpg");
         StorageReference storageRef = storage.getReference().child("productImages/" + dataModel.getId() + ".jpg");

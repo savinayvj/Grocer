@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 public class LanguageHelper {
 
-    //private HashMap<String, ArrayList<String>> languages = new HashMap<String, ArrayList<String>>();
+    //language helper class to get details about supported languages
 
     private String[] languages = {"English","हिंदी","português"};
     private String[] languageFlags = {"english_flag","india_flag","brazil_flag"};
@@ -22,6 +22,7 @@ public class LanguageHelper {
         }
         return 0;
     }
+
 
     public String getLanguageFlag(String lang){
 

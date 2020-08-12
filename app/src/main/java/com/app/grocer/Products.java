@@ -10,6 +10,7 @@ public class Products {
 
     public Products(){}
 
+    // Class to store products
     public Products(int pid, String pname,String pprice, int pquantity,String pcategory,String pdesc){
         productId = pid;
         productName = pname;

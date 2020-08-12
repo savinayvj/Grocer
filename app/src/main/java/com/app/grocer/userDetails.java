@@ -2,6 +2,7 @@ package com.app.grocer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -13,8 +14,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -22,23 +26,48 @@ import java.util.Locale;
 
 public class userDetails extends AppCompatActivity {
 
-
+    AutoCompleteTextView search_bar;
+    TextView cart_counter;
+    shoppingCart cart;
+    ImageView open_cart;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_details);
+
+        //update cart counter when the Activity starts
+        cart_counter = (TextView) findViewById(R.id.cart_counter);
+        SharedPreferences sharedpreferences1 = getSharedPreferences("Myprefs", getApplicationContext().MODE_PRIVATE);
+        cart = new shoppingCart(sharedpreferences1,cart_counter);
+        cart.updateCartUI();
+
+        //populate search items and activate search bar
+        search_bar = (AutoCompleteTextView) findViewById(R.id.search_bar);
+        new SearchGlobal().populateList(this,search_bar);
+
+        //open ShoppingCartActivity when the shopping cart icon is clicked
+        open_cart = (ImageView)findViewById(R.id.shoppingCart);
+        open_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(),ShoppingCartActivity.class);
+                startActivity(i);
+            }
+        });
+
+        //set the language selector
         final Spinner language_selector = (Spinner) findViewById(R.id.language_selector);
         ArrayList<LanguageModel> langlist = new ArrayList<>();
         langlist = new LanguageHelper().getLanguagesList();
-        Button save_button = (Button) findViewById(R.id.save_button);
         LanguageAdapter adapter = new LanguageAdapter(getApplicationContext(),R.layout.language_list_layout,R.id.language_selector,langlist);
-        /* set the spinners adapter to the previously created one. */
         language_selector.setAdapter(adapter);
+
+        //save the language in preferences
+        Button save_button = (Button) findViewById(R.id.save_button);
         final SharedPreferences sharedpreferences = getSharedPreferences("userdetails", getApplicationContext().MODE_PRIVATE);
         final SharedPreferences.Editor myEdit = sharedpreferences.edit();
         String currLang = sharedpreferences.getString("lang","English");
         language_selector.setSelection(new LanguageHelper().getLanguageIndex(currLang));
-
        save_button.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {

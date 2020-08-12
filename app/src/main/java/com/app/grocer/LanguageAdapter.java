@@ -16,6 +16,7 @@ import com.app.grocer.R;
 
 import java.util.List;
 
+//Custom Adapter for the "Select a Language" Dropdown
 public class LanguageAdapter extends ArrayAdapter<LanguageModel> {
 
     private List<LanguageModel> langlist;
@@ -39,9 +40,11 @@ public class LanguageAdapter extends ArrayAdapter<LanguageModel> {
         TextView langName = (TextView) v.findViewById(R.id.langName);
         langName.setText(langlist.get(position).getLanguageName());
         String lang = langlist.get(position).getLanguageName();
-        String flag = new LanguageHelper().getLanguageFlag(lang);
-        Log.d("eee",flag);
 
+        //Call the LanguageHelper to get the language flag path
+        String flag = new LanguageHelper().getLanguageFlag(lang);
+
+        //get the resource id from the flag path and set the image
         int id = context.getResources().getIdentifier( flag, "drawable", context.getPackageName());
         ImageView langFlag = (ImageView) v.findViewById(R.id.langFlag);
         langFlag.setImageResource(id);

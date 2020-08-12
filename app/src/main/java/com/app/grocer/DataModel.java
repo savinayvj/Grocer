@@ -1,6 +1,6 @@
 package com.app.grocer;
 
-
+//Data Model for items List
 public class DataModel {
 
     int item_id;

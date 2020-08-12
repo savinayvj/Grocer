@@ -11,6 +11,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.InputStream;
 
+// Glide Register Module
 @GlideModule
 public class MyAppGlideModule extends AppGlideModule {
 

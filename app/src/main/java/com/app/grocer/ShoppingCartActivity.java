@@ -38,38 +38,41 @@ public class ShoppingCartActivity extends AppCompatActivity {
     TextView emptyMessage;
     TextView total_tv,delivery_tv,delivery_price;
     ImageView user;
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_cart);
+
+        //set empty message if the shopping cart is empty
         shoppingList = (ListView) findViewById(R.id.shoppingCartList);
-        total_price = (TextView) findViewById(R.id.total_price);
+        emptyMessage = (TextView)findViewById(R.id.empty_message);
+        shoppingList.setEmptyView(findViewById(R.id.empty_message));
+
+        //shopping cart UI update on Activity onset
         sharedpreferences = getSharedPreferences("Myprefs", getApplicationContext().MODE_PRIVATE);
         cart_counter = (TextView) findViewById(R.id.cart_counter);
+        shoppingCart cart = new shoppingCart(sharedpreferences,cart_counter);
+        cart.updateCartUI();
+
+        //populate shopping list
+        populateList();
+
+        //if no Item in cart remove Pay button and all charges
         total_tv = (TextView) findViewById(R.id.total);
+        total_price = (TextView) findViewById(R.id.total_price);
         delivery_tv = (TextView) findViewById(R.id.delivery);
         delivery_price = (TextView) findViewById(R.id.delivery_price);
         pay_button = (Button) findViewById(R.id.pay_button);
-        emptyMessage = (TextView)findViewById(R.id.empty_message);
-        shoppingList.setEmptyView(findViewById(R.id.empty_message));
-        user = (ImageView) findViewById(R.id.user);
-
-
-        populateList();
-        SharedPreferences sharedpreferences = getSharedPreferences("Myprefs", 0);
-        shoppingCart cart = new shoppingCart(sharedpreferences,cart_counter);
         if(cart.getItemsCount()>0){
             total_price.setVisibility(View.VISIBLE);
             total_tv.setVisibility(View.VISIBLE);
             delivery_tv.setVisibility(View.VISIBLE);
             delivery_price.setVisibility(View.VISIBLE);
             pay_button.setVisibility(View.VISIBLE);
-
-
         }
+
+        //user icon to open userDetails Activity
+        user = (ImageView) findViewById(R.id.user);
         user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,32 +82,23 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
             }
         });
-        cart.updateCartUI();
-        open_cart = (ImageView)findViewById(R.id.shoppingCart);
 
-
-        open_cart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(),ShoppingCartActivity.class);
-                startActivity(i);
-            }
-        });
     }
 
+    //kill the activity when it in background (so that it restarts everytime it opens and cart remains updated)
     public void onPause() {
-
         super.onPause();
         finish();
     }
 
-
-
+    //function to populate the shopping cart list
     public void populateList(){
         dataModels = new ArrayList<>();
         Map<String,?> keys = sharedpreferences.getAll();
 
+        //for each item in the shopping cart
         for(final Map.Entry<String,?> entry : keys.entrySet()){
+            //if the quantity of item is more than 0
             if(parseInt(String.valueOf(entry.getValue()))>0) {
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference myRef = database.getReference("products");
@@ -117,7 +111,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
                         if (snapshot.exists()) {
                             for(DataSnapshot data : snapshot.getChildren()) {
                                 Products prod1 = data.getValue(Products.class);
-                                Log.d("eee", prod1.productName);
+                                //add price * quantity to total
                                 total += parseInt(prod1.productPrice) * parseInt((String) entry.getValue());
                                 dataModels.add(new DataModel(prod1.productName, prod1.productPrice, prod1.productId, parseInt((String) entry.getValue())));
 

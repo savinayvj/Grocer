@@ -14,7 +14,7 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//Custom Adapter for search list
 public class SearchListAdapter extends ArrayAdapter<SearchItem> {
     private List<SearchItem> searchListFull;
     public SearchListAdapter(@NonNull Context context, @NonNull List<SearchItem> searchItems) {
