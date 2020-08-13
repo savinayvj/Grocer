@@ -36,15 +36,10 @@ import com.synnapps.carouselview.ImageListener;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     CarouselView carouselView;
     ImageView catBread;
     ImageView catDentalCare;
-    ImageView user;
-    TextView cart_counter;
-    shoppingCart cart;
-    AutoCompleteTextView search_bar;
-    ImageView open_cart;
     int[] sampleImages = {R.drawable.banner1, R.drawable.banner2};
 
     @SuppressLint("ResourceType")
@@ -62,67 +57,15 @@ public class MainActivity extends AppCompatActivity {
         carouselView.setPageCount(sampleImages.length);
         carouselView.setImageListener(imageListener);
 
-        //update cart counter when the Activity starts
-        cart_counter = (TextView) findViewById(R.id.cart_counter);
-        SharedPreferences sharedpreferences = getSharedPreferences("Myprefs", getApplicationContext().MODE_PRIVATE);
-        cart = new shoppingCart(sharedpreferences,cart_counter);
-        cart.updateCartUI();
-
-        //populate search items and activate search bar
-        search_bar = (AutoCompleteTextView) findViewById(R.id.search_bar);
-        new SearchGlobal().populateList(this,search_bar);
-
-        //open ShoppingCartActivity when the shopping cart icon is clicked
-        open_cart = (ImageView)findViewById(R.id.shoppingCart);
-        open_cart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(),ShoppingCartActivity.class);
-                startActivity(i);
-            }
-        });
-
         //open the items page with category bread to list items in that category
         catBread = (ImageView) findViewById(R.id.cat_bread);
-        catBread.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(),items.class);
-                i.putExtra("category","bread");
-                startActivity(i);
-            }
-        });
+        catBread.setOnClickListener(this);
 
         //open the items page with category dental care to list items in that category
         catDentalCare = (ImageView)findViewById(R.id.cat_dental_care);
-        catDentalCare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(),items.class);
-                i.putExtra("category","dental care");
-                startActivity(i);
-            }
-        });
+        catDentalCare.setOnClickListener(this);
 
-        //open userdetails page when user Icon is clicked
-        user = (ImageView) findViewById(R.id.user);
-        user.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(),userDetails.class);
-                //i.putExtra("category","dental care");
-                startActivity(i);
 
-            }
-        });
-
-    }
-
-    //update shopping cart counter when the activity comes in foreground
-    @Override
-    protected void onResume() {
-        super.onResume();
-        cart.updateCartUI();
     }
     
     //carousel switcher
@@ -147,6 +90,21 @@ public class MainActivity extends AppCompatActivity {
         getApplicationContext().getResources().updateConfiguration(configuration, displayMetrics);
         configuration.locale = new Locale(langcode.toLowerCase());
         resources.updateConfiguration(configuration, displayMetrics);
+    }
+
+    //onCLickListener for all categories
+    @Override
+    public void onClick(View view) {
+        Intent i = new Intent(getApplicationContext(),items.class);
+        switch (view.getId()){
+            case R.id.cat_bread:
+                i.putExtra("category","bread");
+                break;
+            case R.id.cat_dental_care:
+                i.putExtra("category","dental care");
+                break;
+        }
+        startActivity(i);
     }
 }
 

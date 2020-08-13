@@ -32,12 +32,10 @@ public class ShoppingCartActivity extends AppCompatActivity {
     TextView total_price;
     SharedPreferences sharedpreferences;
     ArrayList<DataModel> dataModels;
-    TextView cart_counter;
-    ImageView open_cart;
     Button pay_button;
     TextView emptyMessage;
     TextView total_tv,delivery_tv,delivery_price;
-    ImageView user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,9 +48,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
         //shopping cart UI update on Activity onset
         sharedpreferences = getSharedPreferences("Myprefs", getApplicationContext().MODE_PRIVATE);
-        cart_counter = (TextView) findViewById(R.id.cart_counter);
-        shoppingCart cart = new shoppingCart(sharedpreferences,cart_counter);
-        cart.updateCartUI();
+        shoppingCart cart = new shoppingCart(sharedpreferences);
 
         //populate shopping list
         populateList();
@@ -71,17 +67,6 @@ public class ShoppingCartActivity extends AppCompatActivity {
             pay_button.setVisibility(View.VISIBLE);
         }
 
-        //user icon to open userDetails Activity
-        user = (ImageView) findViewById(R.id.user);
-        user.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(),userDetails.class);
-                //i.putExtra("category","dental care");
-                startActivity(i);
-
-            }
-        });
 
     }
 

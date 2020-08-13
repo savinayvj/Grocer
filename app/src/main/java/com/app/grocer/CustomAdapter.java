@@ -46,7 +46,6 @@ public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnCli
 
     private ArrayList<DataModel> dataSet;
     Context mContext;
-    TextView cart_counter;
 
 
 
@@ -62,13 +61,11 @@ public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnCli
 
     }
 
-    public CustomAdapter(ArrayList<DataModel> data, Context context,TextView tv) {
+    public CustomAdapter(ArrayList<DataModel> data, Context context) {
         super(context, R.layout.row_item, data);
         this.dataSet = data;
         this.mContext=context;
-        this.cart_counter = tv;
-
-
+        
     }
 
     @Override
@@ -133,7 +130,7 @@ public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnCli
 
         //shopping cart object to add/remove items when the '+' and '-' icons are pressed.
         final SharedPreferences sharedpreferences = getContext().getSharedPreferences("Myprefs", 0);
-        final shoppingCart cart = new shoppingCart(sharedpreferences,cart_counter);
+        final shoppingCart cart = new shoppingCart(sharedpreferences);
 
         //add icon
         viewHolder.item_add.setOnClickListener(new View.OnClickListener() {
@@ -145,10 +142,6 @@ public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnCli
 
                 //write the new quantity to the storageprefs by calling addRemoveItems() and later updateCartUI() to reflect the changes on the shopping cart icon
                 cart.addRemoveItems(dataModel.item_id,viewHolder.item_count.getText().toString());
-                cart.updateCartUI();
-
-
-
                 }
 
 
@@ -165,7 +158,6 @@ public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnCli
                 if(count>=0) {
                     viewHolder.item_count.setText(Integer.toString(count));
                     cart.addRemoveItems(dataModel.item_id,viewHolder.item_count.getText().toString());
-                    cart.updateCartUI();
                 }
             }
         });

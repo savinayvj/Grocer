@@ -26,34 +26,16 @@ import java.util.Locale;
 
 public class userDetails extends AppCompatActivity {
 
-    AutoCompleteTextView search_bar;
-    TextView cart_counter;
     shoppingCart cart;
-    ImageView open_cart;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_details);
 
         //update cart counter when the Activity starts
-        cart_counter = (TextView) findViewById(R.id.cart_counter);
         SharedPreferences sharedpreferences1 = getSharedPreferences("Myprefs", getApplicationContext().MODE_PRIVATE);
-        cart = new shoppingCart(sharedpreferences1,cart_counter);
-        cart.updateCartUI();
-
-        //populate search items and activate search bar
-        search_bar = (AutoCompleteTextView) findViewById(R.id.search_bar);
-        new SearchGlobal().populateList(this,search_bar);
-
-        //open ShoppingCartActivity when the shopping cart icon is clicked
-        open_cart = (ImageView)findViewById(R.id.shoppingCart);
-        open_cart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(),ShoppingCartActivity.class);
-                startActivity(i);
-            }
-        });
+        cart = new shoppingCart(sharedpreferences1);
 
         //set the language selector
         final Spinner language_selector = (Spinner) findViewById(R.id.language_selector);

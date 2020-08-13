@@ -14,12 +14,10 @@ import java.util.Map;
 public class shoppingCart {
     SharedPreferences sharedpreferences;
     SharedPreferences.Editor myEdit;
-    TextView cart_counter;
     int total=0;
-    public shoppingCart(SharedPreferences sharepref, TextView tv){
+    public shoppingCart(SharedPreferences sharepref){
         sharedpreferences = sharepref;
         myEdit = sharedpreferences.edit();
-        cart_counter = tv;
     }
 
     public boolean isItemInCart(int pid){
@@ -43,6 +41,8 @@ public class shoppingCart {
 
         myEdit.commit();
 
+        //Update the cart UI in toolbar
+        SearchBarFragment.getInstance().updateCartUI();
 
     }
 
@@ -64,18 +64,7 @@ public class shoppingCart {
     }
 
 
-    public void updateCartUI(){
-        Log.d("ddd",Integer.toString(getItemsCount()));
-        if(getItemsCount()>0){
-            cart_counter.setVisibility(View.VISIBLE);
-            cart_counter.setText(Integer.toString(getItemsCount()));
-        }else{
-            cart_counter.setVisibility(View.INVISIBLE);
 
-        }
-
-
-    }
 
 
 

@@ -6,12 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".userDetails">
 
-    <include
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        layout="@layout/toolbar_layout"
+    <fragment
+        android:name="com.app.grocer.SearchBarFragment"
         android:id="@+id/toolbar"
-        />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 
     <TextView
         android:id="@+id/langtv"

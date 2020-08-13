@@ -10,12 +10,12 @@
     tools:context=".ItemDetail">
 
 
-    <include
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/toolbar_layout"
+    <fragment
+        android:name="com.app.grocer.SearchBarFragment"
         android:id="@+id/toolbar"
-        />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

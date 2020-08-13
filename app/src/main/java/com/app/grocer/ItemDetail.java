@@ -34,13 +34,10 @@ public class ItemDetail extends AppCompatActivity {
     TextView item_price_detailed;
     ImageView item_add,item_remove;
     TextView item_count;
-    TextView cart_counter;
     Button addToCart;
     shoppingCart cart;
-    ImageView user;
     TextView item_desc;
     Button removeToCart;
-    ImageView open_cart;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,57 +48,26 @@ public class ItemDetail extends AppCompatActivity {
         item_add = (ImageView) findViewById(R.id.item_add);
         item_remove = (ImageView) findViewById(R.id.item_delete);
         item_count = (TextView) findViewById(R.id.item_count);
-        user = (ImageView) findViewById(R.id.user);
-
         addToCart = (Button) findViewById(R.id.addtocart_button);
         item_desc = (TextView)findViewById(R.id.item_desc_detailed);
         removeToCart = (Button) findViewById(R.id.remove_button);
-        open_cart = (ImageView)findViewById(R.id.shoppingCart);
         Bundle extras = getIntent().getExtras();
         final int id = extras.getInt("id");
 
-        //Update shopping cart icon when the Activity starts
-        SharedPreferences sharedpreferences = getSharedPreferences("Myprefs", 0);
-        cart_counter = (TextView) findViewById(R.id.cart_counter);
-        cart = new shoppingCart(sharedpreferences,cart_counter);
-        cart.updateCartUI();
-
-        //populate searchbar and activate search
-        AutoCompleteTextView search_bar = (AutoCompleteTextView) findViewById(R.id.search_bar);
-        search_bar = (AutoCompleteTextView) findViewById(R.id.search_bar);
-        new SearchGlobal().populateList(this,search_bar);
-
         //get the quantity of item (if it is in cart). If quantity > 0, show "remove from cart" button, else No.
+        SharedPreferences sharedpreferences = getSharedPreferences("Myprefs", 0);
         int quantity = Integer.parseInt(sharedpreferences.getString(Integer.toString(id),"0"));
         if(quantity>0){
             removeToCart.setVisibility(View.VISIBLE);
         }
 
-        //Open cart button to start the ShoppingCartActivity
-        open_cart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(),ShoppingCartActivity.class);
-                startActivity(i);
-            }
-        });
-
-        //user button to start userDetails Activity
-        user.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(),userDetails.class);
-                //i.putExtra("category","dental care");
-                startActivity(i);
-
-            }
-        });
+        //initialize shopping cart
+        cart = new shoppingCart(sharedpreferences);
 
         //connect to Firebase Database to to get details about this item.
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("products");
         Query qr = myRef.orderByChild("productId").equalTo(id);
-
         qr.addListenerForSingleValueEvent(new ValueEventListener(){
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -138,7 +104,6 @@ public class ItemDetail extends AppCompatActivity {
                 int count = Integer.valueOf(item_count.getText().toString()) +1;
                 item_count.setText(Integer.toString(count));
 
-
             }
 
 
@@ -152,8 +117,6 @@ public class ItemDetail extends AppCompatActivity {
                 int count = Integer.valueOf(item_count.getText().toString()) -1;
                 if(count>=0) {
                     item_count.setText(Integer.toString(count));
-                    //cart.addRemoveItems(dataModel.item_id,viewHolder.item_count.getText().toString());
-                    //cart.updateCartUI();
                 }
             }
         });
@@ -172,7 +135,6 @@ public class ItemDetail extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 cart.addRemoveItems(id,item_count.getText().toString());
-                cart.updateCartUI();
             }
         });
 
@@ -181,21 +143,10 @@ public class ItemDetail extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 cart.addRemoveItems(id,"0");
-                cart.updateCartUI();
             }
         });
 
 
-
-
-
-
-
     }
-    //update cart UI everytime the activity comes in foreground.
-    @Override
-    protected void onResume() {
-        super.onResume();
-        cart.updateCartUI();
-    }
+
 }

@@ -27,12 +27,8 @@ import java.util.ArrayList;
 public class items extends AppCompatActivity {
     ArrayList<DataModel> dataModels;
     ListView listView;
-    TextView cart_counter;
     private static CustomAdapter adapter;
     shoppingCart cart;
-    AutoCompleteTextView search_bar;
-    ImageView open_cart;
-    ImageView user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,37 +36,8 @@ public class items extends AppCompatActivity {
         listView=(ListView)findViewById(R.id.list);
 
         //updating shopping cart counter/UI
-        cart_counter = (TextView)findViewById(R.id.cart_counter);
         final SharedPreferences sharedpreferences = getSharedPreferences("Myprefs", getApplicationContext().MODE_PRIVATE);
-        cart = new shoppingCart(sharedpreferences,cart_counter);
-        cart.updateCartUI();
-
-        //Search bar is populated with products from the server by SearchGlobal() class
-        search_bar = (AutoCompleteTextView) findViewById(R.id.search_bar);
-        new SearchGlobal().populateList(this,search_bar);
-
-        //shopping cart icon opens ShoppingCartActivity
-        open_cart = (ImageView)findViewById(R.id.shoppingCart);
-        open_cart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(),ShoppingCartActivity.class);
-                startActivity(i);
-            }
-        });
-
-        //user icon open userDetails activity
-        user = (ImageView) findViewById(R.id.user);
-        user.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(),userDetails.class);
-                //i.putExtra("category","dental care");
-                startActivity(i);
-
-            }
-        });
-
+        cart = new shoppingCart(sharedpreferences);
 
         //getting the category selected for the items
         Bundle extras = getIntent().getExtras();
@@ -97,7 +64,7 @@ public class items extends AppCompatActivity {
 
                     }
                     //insert datalist in the ListView
-                    adapter= new CustomAdapter(dataModels,getApplicationContext(),cart_counter);
+                    adapter= new CustomAdapter(dataModels,getApplicationContext());
                     listView.setAdapter(adapter);
                 }
             }
@@ -110,14 +77,6 @@ public class items extends AppCompatActivity {
 
         });
 
-
-
-
     }
-    @Override
-    protected void onResume() {
-        //update shopping cart anytime the activity comes in foreground
-        super.onResume();
-        cart.updateCartUI();
-    }
+
 }
