@@ -50,7 +50,7 @@ public class userDetails extends AppCompatActivity {
         final SharedPreferences.Editor myEdit = sharedpreferences.edit();
         String currLang = sharedpreferences.getString("lang","English");
         language_selector.setSelection(new LanguageHelper().getLanguageIndex(currLang));
-       save_button.setOnClickListener(new View.OnClickListener() {
+        save_button.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
                LanguageModel lang1 = (LanguageModel) language_selector.getSelectedItem();

@@ -18,7 +18,9 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 //Custom Adapter for shopping cart list
 public class ShoppingCartAdapter extends ArrayAdapter<DataModel> implements View.OnClickListener{
@@ -80,7 +82,9 @@ public class ShoppingCartAdapter extends ArrayAdapter<DataModel> implements View
         result.startAnimation(animation);
         lastPosition = position;
         viewHolder.item_name.setText(dataModel.getName());
-        viewHolder.item_price.setText((getContext().getApplicationContext().getResources().getString(R.string.currency)  + " " + dataModel.getPrice()));
+        DecimalFormat formatter = (Locale.getDefault().getLanguage().equals("hi")) ? new DecimalFormat("##,##,###") : new DecimalFormat("#,###,###");
+        String price_string = formatter.format(Integer.parseInt(dataModel.getPrice()));
+        viewHolder.item_price.setText((getContext().getApplicationContext().getResources().getString(R.string.currency)  + " " + price_string));
         viewHolder.item_quantity.setText(Integer.toString(dataModel.getQuantity()));
 
         //open item details page when item name is clicked
@@ -96,13 +100,7 @@ public class ShoppingCartAdapter extends ArrayAdapter<DataModel> implements View
         } );
 
         //Get image for product from Firebase Storage
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        Log.d("mmm","productImages/" + dataModel.getId() + ".jpg");
-        StorageReference storageRef = storage.getReference().child("productImages/" + dataModel.getId() + ".jpg");
-        GlideApp.with(viewHolder.item_image.getContext())
-                .load(storageRef)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(viewHolder.item_image);
+        new GlideHelper(viewHolder.item_image).getImageForProduct(dataModel.getId());
 
         return convertView;
     }

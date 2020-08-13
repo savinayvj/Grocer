@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,7 +21,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Map;
 
 import static java.lang.Integer.parseInt;
@@ -67,7 +70,6 @@ public class ShoppingCartActivity extends AppCompatActivity {
             pay_button.setVisibility(View.VISIBLE);
         }
 
-
     }
 
     //kill the activity when it in background (so that it restarts everytime it opens and cart remains updated)
@@ -107,7 +109,9 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
                         adapter = new ShoppingCartAdapter(dataModels,getApplicationContext());
                         shoppingList.setAdapter(adapter);
-                        total_price.setText(Integer.toString(total));
+                        DecimalFormat formatter = (Locale.getDefault().getLanguage().equals("hi")) ? new DecimalFormat("##,##,###") : new DecimalFormat("#,###,###");
+                        String total_string = formatter.format(total);
+                        total_price.setText(getApplicationContext().getResources().getString(R.string.currency) + " " + total_string);
                     }
 
                     @Override

@@ -38,7 +38,9 @@ import com.google.firebase.storage.UploadTask;
 
 import org.w3c.dom.Text;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 //Custom Adapter for the items list when a category is opened
 
@@ -117,7 +119,9 @@ public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnCli
         viewHolder.item_name.setText(dataModel.getName());
 
         //Set Item's Price (currency is decided by Locale selected)
-        viewHolder.item_price.setText(getContext().getApplicationContext().getResources().getString(R.string.currency) + " " + dataModel.getPrice());
+        DecimalFormat formatter = (Locale.getDefault().getLanguage().equals("hi")) ? new DecimalFormat("##,##,###") : new DecimalFormat("#,###,###");
+        String price_string = formatter.format(Integer.parseInt(dataModel.getPrice()));
+        viewHolder.item_price.setText(getContext().getApplicationContext().getResources().getString(R.string.currency) + " " + price_string);
 
         //If the item's quantity(stock) is less than 0 then Set price as "Not Available" and disable the block to add items to cart
         if(dataModel.getQuantity()<=0){
@@ -176,13 +180,7 @@ public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnCli
         } );
 
         //Retrieve Image of the product from Firebase Storage
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        Log.d("mmm","productImages/" + dataModel.getId() + ".jpg");
-        StorageReference storageRef = storage.getReference().child("productImages/" + dataModel.getId() + ".jpg");
-        GlideApp.with(viewHolder.item_image.getContext())
-                .load(storageRef)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(viewHolder.item_image);
+        new GlideHelper(viewHolder.item_image).getImageForProduct(dataModel.getId());
 
         return convertView;
     }

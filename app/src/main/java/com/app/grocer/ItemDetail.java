@@ -27,6 +27,9 @@ import com.google.firebase.storage.StorageReference;
 
 import org.w3c.dom.Text;
 
+import java.text.DecimalFormat;
+import java.util.Locale;
+
 public class ItemDetail extends AppCompatActivity {
 
     TextView item_name_detailed;
@@ -76,7 +79,9 @@ public class ItemDetail extends AppCompatActivity {
 
                     Products prod1 = data.getValue(Products.class);
                     item_name_detailed.setText(prod1.productName);
-                    item_price_detailed.setText("Rs." + prod1.productPrice);
+                    DecimalFormat formatter = (Locale.getDefault().getLanguage().equals("hi")) ? new DecimalFormat("##,##,###") : new DecimalFormat("#,###,###");
+                    String price_string = formatter.format(Integer.parseInt(prod1.productPrice));
+                    item_price_detailed.setText(getApplicationContext().getResources().getString(R.string.currency) + price_string);
                     item_desc.setText(prod1.productDescription);
                     //if no stocks, hide the add to cart options
                     if(prod1.productQuantity<=0){
@@ -123,12 +128,7 @@ public class ItemDetail extends AppCompatActivity {
 
 
         //Get Image for the product from Firebase Storage
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageRef = storage.getReference().child("productImages/" + id + ".jpg");
-        GlideApp.with(item_image_detailed.getContext())
-                .load(storageRef)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(item_image_detailed);
+        new GlideHelper(item_image_detailed).getImageForProduct(id);
 
         //add the selected quantity to cart and update cart icon
         addToCart.setOnClickListener(new View.OnClickListener() {
