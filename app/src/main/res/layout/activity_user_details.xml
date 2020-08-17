@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -12,16 +15,48 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <EditText
+        android:id="@+id/username"
+        android:layout_centerHorizontal="true"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:hint="@string/username"
+        android:editable="false"/>
+
+    <EditText
+        android:id="@+id/address"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:lines="3"
+        android:layout_height="wrap_content"
+        android:minWidth="@dimen/_200sdp"
+        android:layout_below="@id/username"
+        android:hint="@string/address"
+        android:inputType="textMultiLine"/>
+
+    <EditText
+        android:id="@+id/phone"
+        android:layout_centerHorizontal="true"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/address"
+        android:hint="@string/contact"
+        android:inputType="phone">
+
+    </EditText>
+
 
     <TextView
         android:id="@+id/langtv"
-        android:layout_below="@id/toolbar"
+        android:layout_below="@id/phone"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/select_language"
         android:textStyle="bold"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="@dimen/_20sdp"/>
 
     <Spinner
         android:layout_width="wrap_content"
@@ -49,6 +84,21 @@
         android:layout_marginBottom="20dp"
         />
 
+    <TextView
+        android:id="@+id/order_number"
+        android:layout_width="@dimen/_280sdp"
+        android:layout_height="@dimen/_100sdp"
+        android:layout_centerHorizontal="true"
+        android:padding="@dimen/_20sdp"
+        android:gravity="center"
+        android:layout_below="@id/save_button"
+        android:text="@string/recent_order"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:shadowColor="@color/colorAccent"
+        android:background="@android:drawable/dialog_holo_light_frame"
 
+        />
 
 </RelativeLayout>
+</ScrollView>

@@ -18,5 +18,15 @@
     <string name="not_available">Not Available</string>
     <string name="currency">€</string>
     <string name="save">Save</string>
+    <string name="username">Username</string>
+    <string name="address">Address</string>
+    <string name="contact">Contact No.</string>
+    <string name="recent_order">View Recent Order</string>
+    <string name="details_saved">Details Saved Succesfully</string>
+    <string name="order_placed">Order Placed</string>
+    <string name="details_alert">User details not set</string>
+    <string name="details_alert_detailed">Please set your details</string>
+
+
 
 </resources>

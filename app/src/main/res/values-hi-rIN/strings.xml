@@ -19,6 +19,14 @@
     <string name="not_available">उपलब्ध नहीं है</string>
     <string name="currency">₹</string>
     <string name="save">सेव</string>
+    <string name="username">यूजरनाम</string>
+    <string name="address">घर का पता</string>
+    <string name="contact">फ़ोन नंबर</string>
+    <string name="recent_order">पिछला आर्डर देखें</string>
+    <string name="details_saved">जानकारी सेव हो गयी है</string>
+    <string name="order_placed">आर्डर हो चूका है</string>
+    <string name="details_alert">आपकी जानकारी उपलब्ध नही है</string>
+    <string name="details_alert_detailed">कृपया अपनी जानकारी दें</string>
 
 
 </resources>
