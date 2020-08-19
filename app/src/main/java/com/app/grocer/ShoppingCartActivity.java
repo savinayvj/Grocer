@@ -105,7 +105,8 @@ public class ShoppingCartActivity extends AppCompatActivity {
             {
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference myRef = database.getReference("orders/");
-                myRef.push().setValue(new Orders(1, name, address, phone, productList, quantites));
+                int id = (int) (Math.random() * ((Integer.MAX_VALUE-1)-0 + 1) + 0);
+                myRef.push().setValue(new Orders(id, name, address, phone, productList, quantites));
                 SharedPreferences lastorderpreferences = getSharedPreferences("lastOrder", getApplicationContext().MODE_PRIVATE);
                 SharedPreferences.Editor orderEditor = lastorderpreferences.edit();
                 orderEditor.clear();
