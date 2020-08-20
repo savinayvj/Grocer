@@ -57,7 +57,7 @@ public class OrderProducts extends AppCompatActivity {
             if (parseInt(String.valueOf(entry.getValue())) > 0) {
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference myRef = database.getReference("products");
-                Query qr = myRef.orderByChild("productId").equalTo(parseInt(entry.getKey()));
+                Query qr = myRef.orderByChild("productId").equalTo(entry.getKey());
 
                 qr.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override

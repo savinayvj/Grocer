@@ -55,11 +55,11 @@ public class ItemDetail extends AppCompatActivity {
         item_desc = (TextView)findViewById(R.id.item_desc_detailed);
         removeToCart = (Button) findViewById(R.id.remove_button);
         Bundle extras = getIntent().getExtras();
-        final int id = extras.getInt("id");
+        final String id = extras.getString("id");
 
         //get the quantity of item (if it is in cart). If quantity > 0, show "remove from cart" button, else No.
         SharedPreferences sharedpreferences = getSharedPreferences("Myprefs", 0);
-        int quantity = Integer.parseInt(sharedpreferences.getString(Integer.toString(id),"0"));
+        int quantity = Integer.parseInt(sharedpreferences.getString(id,"0"));
         if(quantity>0){
             removeToCart.setVisibility(View.VISIBLE);
         }

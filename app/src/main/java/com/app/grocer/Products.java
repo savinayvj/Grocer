@@ -1,7 +1,7 @@
 package com.app.grocer;
 import com.google.firebase.database.IgnoreExtraProperties;
 public class Products {
-    public int productId;
+    public String productId;
     public String productName;
     public String productPrice;
     public int productQuantity;
@@ -11,7 +11,7 @@ public class Products {
     public Products(){}
 
     // Class to store products
-    public Products(int pid, String pname,String pprice, int pquantity,String pcategory,String pdesc){
+    public Products(String pid, String pname,String pprice, int pquantity,String pcategory,String pdesc){
         productId = pid;
         productName = pname;
         productPrice = pprice;

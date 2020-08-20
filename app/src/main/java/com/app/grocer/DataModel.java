@@ -3,13 +3,13 @@ package com.app.grocer;
 //Data Model for items List
 public class DataModel {
 
-    int item_id;
+    String item_id;
     String item_name;
     String item_price;
     int item_quantity;
 
 
-    public DataModel(String name, String price,int id , int quantity) {
+    public DataModel(String name, String price,String id , int quantity) {
         item_name = name;
         item_price = price;
         item_id = id;
@@ -25,7 +25,7 @@ public class DataModel {
         return item_price;
     }
 
-    public int getId(){return item_id;}
+    public String getId(){return item_id;}
 
     public int getQuantity(){return item_quantity;}
 

@@ -20,7 +20,7 @@ public class GlideHelper {
 
     }
 
-    public void getImageForProduct(int id){
+    public void getImageForProduct(String id){
         StorageReference storageRef = storage.getReference().child("productImages/" + id + ".jpg");
         GlideApp.with(imageView.getContext())
                 .load(storageRef)

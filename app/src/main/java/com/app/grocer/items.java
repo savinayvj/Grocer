@@ -58,8 +58,9 @@ public class items extends AppCompatActivity {
                     for(DataSnapshot data : snapshot.getChildren() ){
                         //retrieve all products satisfying the category and add to the list
                         Products prod1 = data.getValue(Products.class);
-                        dataModels.add(new DataModel(prod1.productName,prod1.productPrice,prod1.productId,prod1.productQuantity));
-                        Log.d("fff",Integer.toString(prod1.productId));
+                        if(prod1.productQuantity>0) {
+                            dataModels.add(new DataModel(prod1.productName, prod1.productPrice, prod1.productId, prod1.productQuantity));
+                        }
 
 
                     }

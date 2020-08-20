@@ -30,10 +30,10 @@ public class shoppingCart {
         }
     }
 
-    public void addRemoveItems(int pid, String quantity){
+    public void addRemoveItems(String pid, String quantity){
 
         int quan = Integer.parseInt(quantity);
-        String prodid = Integer.toString(pid);
+        String prodid = pid;
         myEdit.putString(prodid,quantity);
         if(quantity=="0"){
             myEdit.remove(prodid);
