@@ -44,9 +44,9 @@ import java.util.Locale;
 
 //Custom Adapter for the items list when a category is opened
 
-public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnClickListener{
+public class CustomAdapter extends ArrayAdapter<Products> implements View.OnClickListener{
 
-    private ArrayList<DataModel> dataSet;
+    private ArrayList<Products> dataSet;
     Context mContext;
 
 
@@ -63,7 +63,7 @@ public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnCli
 
     }
 
-    public CustomAdapter(ArrayList<DataModel> data, Context context) {
+    public CustomAdapter(ArrayList<Products> data, Context context) {
         super(context, R.layout.row_item, data);
         this.dataSet = data;
         this.mContext=context;
@@ -83,7 +83,7 @@ public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnCli
     @Override
     public View getView(int position, View convertView, final ViewGroup parent) {
         // Get the data item for this position
-        final DataModel dataModel = getItem(position);
+        final Products dataModel = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         final ViewHolder viewHolder; // view lookup cache stored in tag
 
@@ -116,11 +116,11 @@ public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnCli
         lastPosition = position;
 
         // set Item's Name
-        viewHolder.item_name.setText(dataModel.getName());
+        viewHolder.item_name.setText(dataModel.productName);
 
         //Set Item's Price (currency is decided by Locale selected)
         DecimalFormat formatter = (Locale.getDefault().getLanguage().equals("hi")) ? new DecimalFormat("##,##,###") : new DecimalFormat("#,###,###");
-        String price_string = formatter.format(Integer.parseInt(dataModel.getPrice()));
+        String price_string = formatter.format(Integer.parseInt(dataModel.productPrice));
         viewHolder.item_price.setText(getContext().getApplicationContext().getResources().getString(R.string.currency) + " " + price_string);
 
         //shopping cart object to add/remove items when the '+' and '-' icons are pressed.
@@ -136,7 +136,7 @@ public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnCli
                 viewHolder.item_count.setText(Integer.toString(count));
 
                 //write the new quantity to the storageprefs by calling addRemoveItems() and later updateCartUI() to reflect the changes on the shopping cart icon
-                cart.addRemoveItems(dataModel.item_id,viewHolder.item_count.getText().toString());
+                cart.addRemoveItems(dataModel.productId,viewHolder.item_count.getText().toString());
                 }
 
 
@@ -152,7 +152,7 @@ public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnCli
                 //write the new quantity (if > 0) to the storageprefs by calling addRemoveItems() and later updateCartUI() to reflect the changes on the shopping cart icon
                 if(count>=0) {
                     viewHolder.item_count.setText(Integer.toString(count));
-                    cart.addRemoveItems(dataModel.item_id,viewHolder.item_count.getText().toString());
+                    cart.addRemoveItems(dataModel.productId,viewHolder.item_count.getText().toString());
                 }
             }
         });
@@ -163,7 +163,7 @@ public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnCli
             public void onClick(View view) {
 
                 Intent i = new Intent(parent.getContext(),ItemDetail.class);
-                i.putExtra("id",dataModel.getId());
+                i.putExtra("id",dataModel.productId);
                 parent.getContext().startActivity(i);
 
 
@@ -171,7 +171,7 @@ public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnCli
         } );
 
         //Retrieve Image of the product from Firebase Storage
-        new GlideHelper(viewHolder.item_image).getImageForProduct(dataModel.getId());
+        new GlideHelper(viewHolder.item_image).getImageForProduct(dataModel.productId);
 
         return convertView;
     }

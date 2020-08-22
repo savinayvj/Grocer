@@ -39,7 +39,6 @@ public class ShoppingCartActivity extends AppCompatActivity {
     int total = 0;
     TextView total_price;
     SharedPreferences sharedpreferences;
-    ArrayList<DataModel> dataModels;
     Button pay_button;
     TextView emptyMessage;
     String name,address,phone;
@@ -133,7 +132,6 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
     //function to populate the shopping cart list
     public void populateList(){
-        dataModels = new ArrayList<>();
         productList.clear();
         quantites.clear();
         Map<String,?> keys = sharedpreferences.getAll();
@@ -154,11 +152,11 @@ public class ShoppingCartActivity extends AppCompatActivity {
                                 quantites.add(parseInt((String) entry.getValue()));
                                 //add price * quantity to total
                                 total += parseInt(prod1.productPrice) * parseInt((String) entry.getValue());
-                                dataModels.add(new DataModel(prod1.productName, prod1.productPrice, prod1.productId, parseInt((String) entry.getValue())));
+                                prod1.productQuantity = parseInt((String) entry.getValue());
 
 
                             }
-                            adapter = new ShoppingCartAdapter(dataModels,getApplicationContext());
+                            adapter = new ShoppingCartAdapter(productList,getApplicationContext());
                             shoppingList.setAdapter(adapter);
                             DecimalFormat formatter = (Locale.getDefault().getLanguage().equals("hi")) ? new DecimalFormat("##,##,###") : new DecimalFormat("#,###,###");
                             String total_string = formatter.format(total);

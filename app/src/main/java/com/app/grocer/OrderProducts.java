@@ -26,7 +26,7 @@ import static java.lang.Integer.parseInt;
 
 public class OrderProducts extends AppCompatActivity {
 
-    ArrayList<DataModel> dataModels;
+    ArrayList<Products> dataModels;
     SharedPreferences lastorderpreferences;
     ShoppingCartAdapter adapter;
     ListView order_list;
@@ -40,7 +40,6 @@ public class OrderProducts extends AppCompatActivity {
         TextView emptyMessage = (TextView) findViewById(R.id.empty_message);
         order_list.setEmptyView(emptyMessage);
         populateList();
-        //Toast.makeText(this,lastorderpreferences.getString("2","null"), Toast.LENGTH_LONG).show();
 
     }
 
@@ -61,7 +60,8 @@ public class OrderProducts extends AppCompatActivity {
                         if (snapshot.exists()) {
                             for (DataSnapshot data : snapshot.getChildren()) {
                                 Products prod1 = data.getValue(Products.class);
-                                dataModels.add(new DataModel(prod1.productName, prod1.productPrice, prod1.productId, parseInt((String) entry.getValue())));
+                                prod1.productQuantity = parseInt((String) entry.getValue());
+                                dataModels.add(prod1);
                                 adapter = new ShoppingCartAdapter(dataModels, getApplicationContext());
                                 order_list.setAdapter(adapter);
 

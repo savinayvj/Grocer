@@ -48,14 +48,13 @@ public class items extends AppCompatActivity {
         firebase.getItemsByCategory(category, new Callback() {
             @Override
             public void onSuccessCallback(DataSnapshot snapshot) {
-                ArrayList<DataModel> dataModels;
-                dataModels = new ArrayList<>();
+                ArrayList<Products> dataModels = new ArrayList<>();
                 if (snapshot.exists()) {
                     for (DataSnapshot data : snapshot.getChildren()) {
                         //retrieve all products satisfying the category and add to the list
                         Products prod1 = data.getValue(Products.class);
                         if (prod1.productQuantity > 0) {
-                            dataModels.add(new DataModel(prod1.productName, prod1.productPrice, prod1.productId, prod1.productQuantity));
+                            dataModels.add(prod1);
                         }
                     }
                     adapter = new CustomAdapter(dataModels, getApplicationContext());

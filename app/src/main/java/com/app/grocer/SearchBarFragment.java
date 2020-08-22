@@ -1,5 +1,6 @@
 package com.app.grocer;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,12 +11,19 @@ import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+
+import com.google.firebase.database.DataSnapshot;
+
+import java.util.ArrayList;
 
 public class SearchBarFragment extends Fragment {
     shoppingCart cart;
     TextView cart_counter;
+    public static ArrayList<SearchItem> searchList = new ArrayList<>();
+    AutoCompleteTextView search_bar;
 
     private static SearchBarFragment instance;
     // The onCreateView method is called when Fragment should create its View object hierarchy,
@@ -33,8 +41,9 @@ public class SearchBarFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         // Search Bar
-        AutoCompleteTextView search_bar = (AutoCompleteTextView) view.findViewById(R.id.search_bar);
-        new SearchGlobal().populateList(getContext(),search_bar);
+        search_bar = (AutoCompleteTextView) view.findViewById(R.id.search_bar);
+        populateList();
+
 
         //open ShoppingCartActivity when the shopping cart icon is clicked
         ImageView open_cart = (ImageView) view.findViewById(R.id.shoppingCart);
@@ -87,5 +96,39 @@ public class SearchBarFragment extends Fragment {
         }
 
 
+    }
+
+    public void populateList(){
+
+        //Connect to Firebase to get Names of all products
+
+        //this block prevents connecting to the database if the list is already been retrieved i.e list is only populated once when the app boots
+        if(!searchList.isEmpty()){
+            SearchListAdapter adapter = new SearchListAdapter(getContext(),searchList);
+            Toast.makeText(getContext(),"Local",Toast.LENGTH_SHORT).show();
+            search_bar.setAdapter(adapter);
+            return;
+        }
+
+        //Retrieving list for the first boot
+        FirebaseHelper helper = new FirebaseHelper();
+        helper.getAllItemNames(new Callback() {
+            @Override
+            public void onSuccessCallback(DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    for(DataSnapshot data:snapshot.getChildren()){
+                        Products prod1 = data.getValue(Products.class);
+                        searchList.add(new SearchItem(prod1.productName,prod1.productId));
+
+
+                    }
+                    SearchListAdapter adapter = new SearchListAdapter(getContext(),searchList);
+                    search_bar.setAdapter(adapter);
+                    Toast.makeText(getContext(),"Cloud",Toast.LENGTH_SHORT).show();
+
+                }
+
+            }
+        });
     }
 }
