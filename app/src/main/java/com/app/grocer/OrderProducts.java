@@ -47,37 +47,26 @@ public class OrderProducts extends AppCompatActivity {
     //function to populate the shopping cart list
     public void populateList() {
         dataModels = new ArrayList<>();
-
-
         Map<String, ?> keys = lastorderpreferences.getAll();
 
         //for each item in the shopping cart
         for (final Map.Entry<String, ?> entry : keys.entrySet()) {
             //if the quantity of item is more than 0
             if (parseInt(String.valueOf(entry.getValue())) > 0) {
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference myRef = database.getReference("products");
-                Query qr = myRef.orderByChild("productId").equalTo(entry.getKey());
 
-                qr.addListenerForSingleValueEvent(new ValueEventListener() {
+                FirebaseHelper helper = new FirebaseHelper();
+                helper.getItemById(entry.getKey(), new Callback() {
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-
+                    public void onSuccessCallback(DataSnapshot snapshot) {
                         if (snapshot.exists()) {
                             for (DataSnapshot data : snapshot.getChildren()) {
                                 Products prod1 = data.getValue(Products.class);
                                 dataModels.add(new DataModel(prod1.productName, prod1.productPrice, prod1.productId, parseInt((String) entry.getValue())));
-
+                                adapter = new ShoppingCartAdapter(dataModels, getApplicationContext());
+                                order_list.setAdapter(adapter);
 
                             }
                         }
-
-                        adapter = new ShoppingCartAdapter(dataModels, getApplicationContext());
-                        order_list.setAdapter(adapter);
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
 
                     }
                 });

@@ -103,10 +103,9 @@ public class ShoppingCartActivity extends AppCompatActivity {
                 if(detailsSet)
 
             {
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference myRef = database.getReference("orders/");
-                int id = (int) (Math.random() * ((Integer.MAX_VALUE-1)-0 + 1) + 0);
-                myRef.push().setValue(new Orders(id, name, address, phone, productList, quantites));
+
+                FirebaseHelper helper = new FirebaseHelper();
+                helper.inserOrder(name,address,phone,productList,quantites);
                 SharedPreferences lastorderpreferences = getSharedPreferences("lastOrder", getApplicationContext().MODE_PRIVATE);
                 SharedPreferences.Editor orderEditor = lastorderpreferences.edit();
                 orderEditor.clear();
@@ -143,15 +142,12 @@ public class ShoppingCartActivity extends AppCompatActivity {
         for(final Map.Entry<String,?> entry : keys.entrySet()){
             //if the quantity of item is more than 0
             if(parseInt(String.valueOf(entry.getValue()))>0) {
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                DatabaseReference myRef = database.getReference("products");
-                Query qr = myRef.orderByChild("productId").equalTo(entry.getKey());
 
-                qr.addListenerForSingleValueEvent(new ValueEventListener() {
+                FirebaseHelper helper = new FirebaseHelper();
+                helper.getItemById(entry.getKey(), new Callback() {
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                        if (snapshot.exists()) {
+                    public void onSuccessCallback(DataSnapshot snapshot) {
+                        if(snapshot.exists()){
                             for(DataSnapshot data : snapshot.getChildren()) {
                                 Products prod1 = data.getValue(Products.class);
                                 productList.add(prod1);
@@ -161,27 +157,17 @@ public class ShoppingCartActivity extends AppCompatActivity {
                                 dataModels.add(new DataModel(prod1.productName, prod1.productPrice, prod1.productId, parseInt((String) entry.getValue())));
 
 
-
                             }
+                            adapter = new ShoppingCartAdapter(dataModels,getApplicationContext());
+                            shoppingList.setAdapter(adapter);
+                            DecimalFormat formatter = (Locale.getDefault().getLanguage().equals("hi")) ? new DecimalFormat("##,##,###") : new DecimalFormat("#,###,###");
+                            String total_string = formatter.format(total);
+                            total_price.setText(getApplicationContext().getResources().getString(R.string.currency) + " " + total_string);
+
                         }
-
-                        adapter = new ShoppingCartAdapter(dataModels,getApplicationContext());
-                        shoppingList.setAdapter(adapter);
-                        DecimalFormat formatter = (Locale.getDefault().getLanguage().equals("hi")) ? new DecimalFormat("##,##,###") : new DecimalFormat("#,###,###");
-                        String total_string = formatter.format(total);
-                        total_price.setText(getApplicationContext().getResources().getString(R.string.currency) + " " + total_string);
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
                     }
                 });
-
             }
-
-
-
 
         }
 

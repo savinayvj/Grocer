@@ -25,7 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class items extends AppCompatActivity {
-    ArrayList<DataModel> dataModels;
+
     ListView listView;
     private static CustomAdapter adapter;
     shoppingCart cart;
@@ -43,41 +43,27 @@ public class items extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         final String category = extras.getString("category");
 
-        //querying Firebase
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("products");
-        Query qr = myRef.orderByChild("productCategory").equalTo(category);
 
-        dataModels= new ArrayList<>();
-
-        qr.addListenerForSingleValueEvent(new ValueEventListener() {
+        FirebaseHelper firebase = new FirebaseHelper();
+        firebase.getItemsByCategory(category, new Callback() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                if(snapshot.exists()){
-                    for(DataSnapshot data : snapshot.getChildren() ){
+            public void onSuccessCallback(DataSnapshot snapshot) {
+                ArrayList<DataModel> dataModels;
+                dataModels = new ArrayList<>();
+                if (snapshot.exists()) {
+                    for (DataSnapshot data : snapshot.getChildren()) {
                         //retrieve all products satisfying the category and add to the list
                         Products prod1 = data.getValue(Products.class);
-                        if(prod1.productQuantity>0) {
+                        if (prod1.productQuantity > 0) {
                             dataModels.add(new DataModel(prod1.productName, prod1.productPrice, prod1.productId, prod1.productQuantity));
                         }
-
-
                     }
-                    //insert datalist in the ListView
-                    adapter= new CustomAdapter(dataModels,getApplicationContext());
+                    adapter = new CustomAdapter(dataModels, getApplicationContext());
                     listView.setAdapter(adapter);
+
                 }
             }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-
-
         });
-
     }
 
 }

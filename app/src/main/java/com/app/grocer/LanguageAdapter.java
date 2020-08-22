@@ -42,7 +42,7 @@ public class LanguageAdapter extends ArrayAdapter<LanguageModel> {
         String lang = langlist.get(position).getLanguageName();
 
         //Call the LanguageHelper to get the language flag path
-        String flag = new LanguageHelper().getLanguageFlag(lang);
+        String flag = lang + "_flag";
 
         //get the resource id from the flag path and set the image
         int id = context.getResources().getIdentifier( flag, "drawable", context.getPackageName());
@@ -70,7 +70,7 @@ public class LanguageAdapter extends ArrayAdapter<LanguageModel> {
         TextView langName = (TextView) v.findViewById(R.id.langName);
         langName.setText(langlist.get(position).getLanguageName());
         String lang = langlist.get(position).getLanguageName();
-        String flag = new LanguageHelper().getLanguageFlag(lang);
+        String flag = lang + "_flag";
         int id = context.getResources().getIdentifier( flag , "drawable", context.getPackageName());
         ImageView langFlag = (ImageView) v.findViewById(R.id.langFlag);
         langFlag.setImageResource(id);

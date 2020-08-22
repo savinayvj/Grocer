@@ -33,16 +33,12 @@ public class SearchGlobal {
         searchList = new ArrayList<SearchItem>();
 
         //Connect to Firebase to get Names of all products
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("products");
-        Query qr = myRef.orderByChild("productName");
-
-        qr.addListenerForSingleValueEvent(new ValueEventListener() {
-
+        FirebaseHelper helper = new FirebaseHelper();
+        helper.getAllItemNames(new Callback() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()) {
-                    for (DataSnapshot data : snapshot.getChildren()) {
+            public void onSuccessCallback(DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    for(DataSnapshot data:snapshot.getChildren()){
                         Products prod1 = data.getValue(Products.class);
                         searchList.add(new SearchItem(prod1.productName,prod1.productId));
                         SearchListAdapter adapter = new SearchListAdapter(context,SearchGlobal.searchList);
@@ -52,13 +48,6 @@ public class SearchGlobal {
                 }
 
             }
-
-
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-    });
+        });
 }
 }

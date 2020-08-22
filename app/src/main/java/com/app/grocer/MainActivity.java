@@ -79,8 +79,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //get the last saved locale and set for current instance
     public void setLocale(){
         SharedPreferences sharedpreferences = getSharedPreferences("userdetails", getApplicationContext().MODE_PRIVATE);
-        String currentLang = sharedpreferences.getString("lang","English");
-        String langcode= new LanguageHelper().getLanguageCode(currentLang);
+        String langcode = sharedpreferences.getString("lang","en");
         Resources resources = getResources();
         DisplayMetrics displayMetrics = getApplicationContext().getResources().getDisplayMetrics();
         Configuration configuration = getApplicationContext().getResources().getConfiguration();

@@ -67,39 +67,33 @@ public class ItemDetail extends AppCompatActivity {
         //initialize shopping cart
         cart = new shoppingCart(sharedpreferences);
 
-        //connect to Firebase Database to to get details about this item.
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("products");
-        Query qr = myRef.orderByChild("productId").equalTo(id);
-        qr.addListenerForSingleValueEvent(new ValueEventListener(){
+
+        FirebaseHelper helper = new FirebaseHelper();
+        helper.getItemById(id, new Callback() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            public void onSuccessCallback(DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot data : snapshot.getChildren()) {
+                        Products prod1 = data.getValue(Products.class);
+                        item_name_detailed.setText(prod1.productName);
+                        DecimalFormat formatter = (Locale.getDefault().getLanguage().equals("hi")) ? new DecimalFormat("##,##,###") : new DecimalFormat("#,###,###");
+                        String price_string = formatter.format(Integer.parseInt(prod1.productPrice));
+                        item_price_detailed.setText(getApplicationContext().getResources().getString(R.string.currency) + price_string);
+                        item_desc.setText(prod1.productDescription);
+                        //if no stocks, hide the add to cart options
+                        if (prod1.productQuantity <= 0) {
+                            addToCart.setVisibility(View.INVISIBLE);
+                            item_add.setVisibility(View.INVISIBLE);
+                            item_remove.setVisibility(View.INVISIBLE);
+                            item_count.setVisibility(View.INVISIBLE);
+                        }
 
-                for(DataSnapshot data : snapshot.getChildren() ){
-
-                    Products prod1 = data.getValue(Products.class);
-                    item_name_detailed.setText(prod1.productName);
-                    DecimalFormat formatter = (Locale.getDefault().getLanguage().equals("hi")) ? new DecimalFormat("##,##,###") : new DecimalFormat("#,###,###");
-                    String price_string = formatter.format(Integer.parseInt(prod1.productPrice));
-                    item_price_detailed.setText(getApplicationContext().getResources().getString(R.string.currency) + price_string);
-                    item_desc.setText(prod1.productDescription);
-                    //if no stocks, hide the add to cart options
-                    if(prod1.productQuantity<=0){
-                        addToCart.setVisibility(View.INVISIBLE);
-                        item_add.setVisibility(View.INVISIBLE);
-                        item_remove.setVisibility(View.INVISIBLE);
-                        item_count.setVisibility(View.INVISIBLE);
                     }
-
-
                 }
             }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
         });
+
+
 
         // add quantity button (+)
         item_add.setOnClickListener(new View.OnClickListener() {

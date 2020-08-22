@@ -123,15 +123,6 @@ public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnCli
         String price_string = formatter.format(Integer.parseInt(dataModel.getPrice()));
         viewHolder.item_price.setText(getContext().getApplicationContext().getResources().getString(R.string.currency) + " " + price_string);
 
-       /* //If the item's quantity(stock) is less than 0 then Set price as "Not Available" and disable the block to add items to cart
-        if(dataModel.getQuantity()<=0){
-            viewHolder.item_count.setVisibility(View.INVISIBLE);
-            viewHolder.item_add.setVisibility(View.INVISIBLE);
-            viewHolder.item_delete.setVisibility(View.INVISIBLE);
-            viewHolder.item_price.setText(getContext().getApplicationContext().getResources().getString(R.string.not_available));
-            notifyDataSetChanged();
-        }*/
-
         //shopping cart object to add/remove items when the '+' and '-' icons are pressed.
         final SharedPreferences sharedpreferences = getContext().getSharedPreferences("Myprefs", 0);
         final shoppingCart cart = new shoppingCart(sharedpreferences);

@@ -26,6 +26,12 @@
     <string name="order_placed">Order Placed</string>
     <string name="details_alert">User details not set</string>
     <string name="details_alert_detailed">Please set your details</string>
+    
+    <string-array name="languages">
+        <item>en</item>
+        <item>hi</item>
+        <item>pt</item>
+    </string-array>
 
 
 

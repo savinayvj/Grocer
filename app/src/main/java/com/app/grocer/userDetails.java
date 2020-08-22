@@ -33,6 +33,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Locale;
 
 import static android.R.layout.simple_list_item_1;
@@ -52,10 +53,16 @@ public class userDetails extends AppCompatActivity {
         address = (EditText) findViewById(R.id.address);
         phone = (EditText) findViewById(R.id.phone);
 
+        String[] languages = getResources().getStringArray(R.array.languages);
+
         //set the language selector
         final Spinner language_selector = (Spinner) findViewById(R.id.language_selector);
         ArrayList<LanguageModel> langlist = new ArrayList<>();
-        langlist = new LanguageHelper().getLanguagesList();
+
+        for(int i=0;i<languages.length;i++){
+            langlist.add(new LanguageModel(languages[i]));
+        }
+
         LanguageAdapter adapter = new LanguageAdapter(getApplicationContext(),R.layout.language_list_layout,R.id.language_selector,langlist);
         language_selector.setAdapter(adapter);
 
@@ -66,8 +73,8 @@ public class userDetails extends AppCompatActivity {
         name.setText(sharedpreferences.getString("name",""));
         phone.setText(sharedpreferences.getString("phone",""));
         address.setText(sharedpreferences.getString("address",""));
-        final String currLang = sharedpreferences.getString("lang","English");
-        language_selector.setSelection(new LanguageHelper().getLanguageIndex(currLang));
+        final String currLang = sharedpreferences.getString("lang","en");
+        language_selector.setSelection(Arrays.asList(languages).indexOf(currLang));
         save_button.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
@@ -77,7 +84,8 @@ public class userDetails extends AppCompatActivity {
                myEdit.putString("address",address.getText().toString());
                myEdit.putString("phone",phone.getText().toString());
                myEdit.commit();
-               if(Locale.getDefault().getLanguage() != new LanguageHelper().getLanguageCode(lang1.getLanguageName())) {
+
+               if(!getResources().getConfiguration().locale.getLanguage().equals(lang1.getLanguageName())) {
                    Toast.makeText(userDetails.this, R.string.language_changed, Toast.LENGTH_LONG).show();
                }
                Toast.makeText(userDetails.this,R.string.details_saved, Toast.LENGTH_SHORT).show();

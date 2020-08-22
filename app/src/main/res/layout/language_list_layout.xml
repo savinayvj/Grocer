@@ -10,7 +10,7 @@
         android:id="@+id/langFlag"
         android:layout_width="@dimen/_30sdp"
         android:layout_height="@dimen/_15sdp"
-        android:src="@drawable/english_flag"
+        android:src="@drawable/en_flag"
         />
     <TextView
         android:id="@+id/langName"
